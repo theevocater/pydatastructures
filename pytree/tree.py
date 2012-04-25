@@ -58,12 +58,34 @@ class Tree:
         if node is None:
             return None
 
-# TODO deal with deletion
         if node.item == item:
-            if left:
-                parent.left = node
+            # 2 children -- replace node with left most right child (the
+            # smallest value in the right subtree)
+            # TODO: finish __leftMost.  probably want the parent as well.
+            if node.left and node.right:
+                if left:
+                    parent.left = node
+                else:
+                    parent.right = node
+            # no children is easy, just eliminate
+            if not node.left and not node.right:
+                if left:
+                    parent.left = None
+                else:
+                    parent.right = None
+            # one child is also easy, just promote child
             else:
-                parent.right = node
+                if node.left:
+                    if left:
+                        parent.left = node.left
+                    else:
+                        parent.right = node.left
+                else:
+                    if left:
+                        parent.left = node.right
+                    else:
+                        parent.right = node.right
+
             return node
 
         if node.item > item:
