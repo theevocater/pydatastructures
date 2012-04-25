@@ -1,10 +1,17 @@
 class Node:
     def __init__(self, item):
+        """
+            Creates a new node with data item "item"
+        """
         self.item = item
         self.left = None
         self.right = None
 
     def __str__(self):
+        """
+            returns a representation of the node which is
+            str(left.item) + str(item) + str(right.item)
+        """
         final_string = ""
         if self.left:
             final_string = self.left.item + " "
@@ -19,13 +26,21 @@ class Node:
 
 
 class Tree:
-    def __init__(self):
+    def __init__(self, item=None):
+        """
+            Initializes a tree with an element
+        """
         self.head = None
+        if item:
+            self.insert(item)
 
     #def __str__(self):
         #self.traverse()
 
-    def push(self, item):
+    def insert(self, item):
+        """
+            Inserts a new node into the tree
+        """
         if self.head is None:
             self.head = Node(item)
             return self.head
@@ -47,9 +62,12 @@ class Tree:
             return self._create_node(node.right, item, node, False)
 
     def delete(self, item):
+        """
+            Deletes a node from the tree
+        """
         if not self.head:
             return None
-        # special case for head. 
+        # special case for head.
         # TODO probably a way to remove this
         if item == self.head.item:
             temp = self.head
@@ -58,7 +76,6 @@ class Tree:
                 new_node.left = self.head.left
                 new_node.right = self.head.right
                 self.head = new_node
-
             # no children is easy, just eliminate
             elif not self.head.left and not self.head.right:
                 self.head = None
@@ -67,9 +84,7 @@ class Tree:
                 self.head = self.head.left
             elif self.head.right:
                 self.head = self.head.right
-
             return temp
-
 
         return self._delete_node(self.head, item, None)
 
@@ -162,14 +177,14 @@ def tree_iterator(node):
 
 if __name__ == "__main__":
     tree = Tree()
-    tree.push("b")
-    tree.push("c")
-    tree.push("a")
-    tree.push("e")
-    tree.push("alphabet")
-    tree.push("zelp")
-    tree.push("pom")
-    tree.push("cass")
+    tree.insert("b")
+    tree.insert("c")
+    tree.insert("a")
+    tree.insert("e")
+    tree.insert("alphabet")
+    tree.insert("zelp")
+    tree.insert("pom")
+    tree.insert("cass")
     tree.traverse()
     print
     for i in tree_iterator(tree.head):
