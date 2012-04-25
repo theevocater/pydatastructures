@@ -49,6 +49,27 @@ class Tree:
     def delete(self, item):
         if not self.head:
             return None
+        # special case for head. 
+        # TODO probably a way to remove this
+        if item == self.head.item:
+            temp = self.head
+            if self.head.left and self.head.right:
+                new_node = self._remove_left_most(self.head.right, self.head)
+                new_node.left = self.head.left
+                new_node.right = self.head.right
+                self.head = new_node
+
+            # no children is easy, just eliminate
+            elif not self.head.left and not self.head.right:
+                self.head = None
+            # one child is also easy, just promote child
+            elif self.head.left:
+                self.head = self.head.left
+            elif self.head.right:
+                self.head = self.head.right
+
+            return temp
+
 
         return self._delete_node(self.head, item, None)
 
@@ -77,22 +98,25 @@ class Tree:
             return self._delete_node(node.right, item, node)
 
     def _no_children(self, node, parent):
-        if node == parent.left:
-            parent.left = None
-        else:
-            parent.right = None
+        if parent:
+            if node == parent.left:
+                parent.left = None
+            else:
+                parent.right = None
 
     def _one_child(self, node, parent):
         if node.left:
-            if node == parent.left:
-                parent.left = node.left
-            else:
-                parent.right = node.left
+            if parent:
+                if node == parent.left:
+                    parent.left = node.left
+                else:
+                    parent.right = node.left
         else:
-            if node == parent.left:
-                parent.left = node.right
-            else:
-                parent.right = node.right
+            if parent:
+                if node == parent.left:
+                    parent.left = node.right
+                else:
+                    parent.right = node.right
 
     def _remove_left_most(self, node, parent):
         if node.left:
@@ -101,7 +125,7 @@ class Tree:
             if node.right:
                 self._one_child(node, parent)
                 node.right = None
-            else: 
+            else:
                 self._no_children(node, parent)
             return node
 
@@ -110,10 +134,11 @@ class Tree:
         new_node.left = node.left
         new_node.right = node.right
 
-        if node == parent.left:
-            parent.left = new_node
-        else:
-            parent.right = new_node
+        if parent:
+            if node == parent.left:
+                parent.left = new_node
+            else:
+                parent.right = new_node
 
     def traverse(self):
         self.__traverse(self.head)
@@ -164,6 +189,36 @@ if __name__ == "__main__":
     print "\ndeleting pom\n"
     tree.delete("pom")
     tree.traverse()
-    print 
+    print
+    for i in tree_iterator(tree.head):
+        print i
+    print "\ndeleting b\n"
+    tree.delete("b")
+    tree.traverse()
+    print
+    for i in tree_iterator(tree.head):
+        print i
+    print "\ndeleting alphabet\n"
+    tree.delete("alphabet")
+    tree.traverse()
+    print
+    for i in tree_iterator(tree.head):
+        print i
+    print "\ndeleting c\n"
+    tree.delete("c")
+    tree.traverse()
+    print
+    for i in tree_iterator(tree.head):
+        print i
+    print "\ndeleting zelp\n"
+    tree.delete("zelp")
+    tree.traverse()
+    print
+    for i in tree_iterator(tree.head):
+        print i
+    print "\ndeleting cass\n"
+    tree.delete("cass")
+    tree.traverse()
+    print
     for i in tree_iterator(tree.head):
         print i
