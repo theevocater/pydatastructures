@@ -34,8 +34,24 @@ class Tree:
         if item:
             self.insert(item)
 
-    #def __str__(self):
-        #self.traverse()
+    def search(self, item):
+        """
+            Searches for a given item in the tree. Mostly useful if you
+            redefine the __eq__()
+        """
+        return self._search(self.head, item)
+
+    def _search(self, node, item):
+        if node is None:
+            return None
+
+        if node.item == item:
+            return node.item
+
+        if item < node.item:
+            return self._search(node.left, item)
+
+        return self._search(node.right, item)
 
     def insert(self, item):
         """
@@ -156,14 +172,14 @@ class Tree:
                 parent.right = new_node
 
     def traverse(self):
-        self.__traverse(self.head)
+        self._traverse(self.head)
 
-    def __traverse(self, node):
+    def _traverse(self, node):
         if node is None:
             return
-        self.__traverse(node.left)
+        self._traverse(node.left)
         print str(node)
-        self.__traverse(node.right)
+        self._traverse(node.right)
 
 
 def tree_iterator(node):
@@ -185,6 +201,12 @@ if __name__ == "__main__":
     tree.insert("zelp")
     tree.insert("pom")
     tree.insert("cass")
+    print "Search Test"
+    print "Search for b"
+    print tree.search("b")
+    print "Searching for nop"
+    print tree.search("nop")
+    print
     tree.traverse()
     print
     for i in tree_iterator(tree.head):
