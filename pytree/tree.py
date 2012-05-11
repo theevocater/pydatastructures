@@ -171,15 +171,17 @@ class Tree:
             else:
                 parent.right = new_node
 
-    def traverse(self):
-        self._traverse(self.head)
+    def inorder_traverse(self):
+        """
+            Returns an inorder str(item) traversal of the tree.
+        """
+        return self._inorder_traverse(self.head)
 
-    def _traverse(self, node):
+    def _inorder_traverse(self, node):
         if node is None:
-            return
-        self._traverse(node.left)
-        print str(node)
-        self._traverse(node.right)
+            return ""
+        return self._inorder_traverse(node.left) + " " + str(node.item) \
+                + self._inorder_traverse(node.right)
 
 
 def tree_iterator(node):
@@ -207,55 +209,55 @@ if __name__ == "__main__":
     print "Searching for nop"
     print tree.search("nop")
     print
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting e\n"
     tree.delete("e")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting a\n"
     tree.delete("a")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting pom\n"
     tree.delete("pom")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting b\n"
     tree.delete("b")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting alphabet\n"
     tree.delete("alphabet")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting c\n"
     tree.delete("c")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting zelp\n"
     tree.delete("zelp")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
     print "\ndeleting cass\n"
     tree.delete("cass")
-    tree.traverse()
+    print tree.inorder_traverse()
     print
     for i in tree_iterator(tree.head):
         print i
