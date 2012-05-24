@@ -175,13 +175,14 @@ class Tree:
         """
             Returns an inorder str(item) traversal of the tree.
         """
-        return self._inorder_traverse(self.head)
+        return self._inorder_traverse(self.head, 0)
 
-    def _inorder_traverse(self, node):
+    def _inorder_traverse(self, node, depth):
         if node is None:
             return ""
-        return self._inorder_traverse(node.left) + " " + str(node.item) \
-                + self._inorder_traverse(node.right)
+        return self._inorder_traverse(node.left, depth + 1)\
+                + " " * depth * 2 + str(node.item) + "\n"\
+                + self._inorder_traverse(node.right, depth + 1)
 
 
 def tree_iterator(node):
