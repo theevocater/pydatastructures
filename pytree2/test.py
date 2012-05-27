@@ -2,6 +2,7 @@
 
 import unittest
 from tree import Tree
+from tree import Node 
 from copy import copy
 
 # TODO consider adding a 'list' of items to add and then adding them randomly
@@ -13,7 +14,7 @@ class Testing(unittest.TestCase):
     def testInsert(self):
         tree = Tree()
         temp = "b"
-        tree.insert(temp)
+        node = tree.insert(temp)
         self.assertEqual(tree.head.item, temp)
         temp = "a"
         tree.insert(temp)
@@ -21,6 +22,8 @@ class Testing(unittest.TestCase):
         temp = "cat"
         tree.insert(temp)
         self.assertEqual(tree.head.right.item, temp)
+        temp = "cat"
+        self.assertIsNone(tree.insert(temp))
 
     def testSearch(self):
         tree = Tree()
