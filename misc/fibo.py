@@ -17,8 +17,8 @@ def fibonacci(count):
 
 if __name__ == "__main__":
     for i in fibonacci(5):
-        print i
-    print
+        print(i)
+    print()
 
     for i in fibonacci(10):
-        print i
+        print(i)
